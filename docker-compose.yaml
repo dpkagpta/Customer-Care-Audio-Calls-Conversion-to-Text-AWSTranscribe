@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  transcribe_build:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: transcribe:0.0.1
+  
+  transcribe:
+    stdin_open: true
+    tty: true
+    restart: always
+    image: transcribe:0.0.1
+    container_name: transcribe
+    entrypoint:
+      - /bin/bash
+      - -c
+      - |
+        python Hindi_transcription_AWS.py
+    volumes:
+      - .:/app
+    ports: 
+      - 5000:5000

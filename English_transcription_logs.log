@@ -1,0 +1,95 @@
+2020-05-22 00:20:54,955:Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2020-05-22 00:20:54,963:Changing event name from before-call.apigateway to before-call.api-gateway
+2020-05-22 00:20:54,964:Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2020-05-22 00:20:54,969:Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2020-05-22 00:20:54,969:Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2020-05-22 00:20:54,970:Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2020-05-22 00:20:54,972:Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2020-05-22 00:20:54,978:Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2020-05-22 00:20:54,978:Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2020-05-22 00:20:54,979:Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2020-05-22 00:20:54,979:Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2020-05-22 00:20:55,034:Loading JSON file: C:\Users\user\Anaconda3\lib\site-packages\boto3\data\s3\2006-03-01\resources-1.json
+2020-05-22 00:20:55,036:Loading JSON file: C:\Users\user\Anaconda3\lib\site-packages\botocore\data\endpoints.json
+2020-05-22 00:20:55,041:Event choose-service-name: calling handler <function handle_service_name_alias at 0x000001E0A83F5708>
+2020-05-22 00:20:55,083:Loading JSON file: C:\Users\user\Anaconda3\lib\site-packages\botocore\data\s3\2006-03-01\service-2.json
+2020-05-22 00:20:55,092:Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x000001E0A83BEA68>
+2020-05-22 00:20:55,092:Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x000001E0A70BB318>
+2020-05-22 00:20:55,147:Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x000001E0A83BE828>
+2020-05-22 00:20:55,150:Setting s3 timeout as (60, 60)
+2020-05-22 00:20:55,151:Loading JSON file: C:\Users\user\Anaconda3\lib\site-packages\botocore\data\_retry.json
+2020-05-22 00:20:55,152:Registering retry handlers for service: s3
+2020-05-22 00:20:55,153:Loading s3:s3
+2020-05-22 00:20:55,154:Loading s3:Bucket
+2020-05-22 00:20:55,155:Renaming Bucket attribute name
+2020-05-22 00:20:55,155:Event creating-resource-class.s3.Bucket: calling handler <function lazy_call.<locals>._handler at 0x000001E0A8492318>
+2020-05-22 00:20:56,130:NumExpr defaulting to 4 threads.
+2020-05-22 00:20:56,342:Event choose-service-name: calling handler <function handle_service_name_alias at 0x000001E0A83F5708>
+2020-05-22 00:20:56,344:Loading JSON file: C:\Users\user\Anaconda3\lib\site-packages\botocore\data\transcribe\2017-10-26\service-2.json
+2020-05-22 00:20:56,346:Event creating-client-class.transcribe: calling handler <function add_generate_presigned_url at 0x000001E0A83BE828>
+2020-05-22 00:20:56,348:Setting transcribe timeout as (60, 60)
+2020-05-22 00:20:56,349:Registering retry handlers for service: transcribe
+2020-05-22 00:20:56,350:Event before-parameter-build.transcribe.StartTranscriptionJob: calling handler <function generate_idempotent_uuid at 0x000001E0A841E828>
+2020-05-22 00:20:56,350:Event before-call.transcribe.StartTranscriptionJob: calling handler <function inject_api_version_header_if_needed at 0x000001E0A8424318>
+2020-05-22 00:20:56,350:Making request for OperationModel(name=StartTranscriptionJob) with params: {'url_path': '/', 'query_string': '', 'method': 'POST', 'headers': {'X-Amz-Target': 'Transcribe.StartTranscriptionJob', 'Content-Type': 'application/x-amz-json-1.1', 'User-Agent': 'Boto3/1.12.14 Python/3.7.4 Windows/10 Botocore/1.15.14'}, 'body': b'{"TranscriptionJobName": "English-Mar2019-8-STES0131-000034e4-1551160266.16623-360144-443223-8169321400-20190226-112107", "Media": {"MediaFileUri": "https://dialer-recording.s3.ap-south-1.amazonaws.com/Mar2019/8/STES0131-000034e4-1551160266.16623-360144-443223-8169321400-20190226-112107.wav"}, "MediaFormat": "wav", "LanguageCode": "en-IN", "OutputBucketName": "sttash-transcribe-result-bucket", "Settings": {"ShowSpeakerLabels": true, "MaxSpeakerLabels": 2, "ShowAlternatives": true, "MaxAlternatives": 2}}', 'url': 'https://transcribe.ap-south-1.amazonaws.com/', 'context': {'client_region': 'ap-south-1', 'client_config': <botocore.config.Config object at 0x000001E0B104F808>, 'has_streaming_input': False, 'auth_type': None}}
+2020-05-22 00:20:56,350:Event request-created.transcribe.StartTranscriptionJob: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x000001E0B104F7C8>>
+2020-05-22 00:20:56,351:Event choose-signer.transcribe.StartTranscriptionJob: calling handler <function set_operation_specific_signer at 0x000001E0A841E708>
+2020-05-22 00:20:56,351:Calculating signature using v4 auth.
+2020-05-22 00:20:56,351:CanonicalRequest:
+POST
+/
+
+content-type:application/x-amz-json-1.1
+host:transcribe.ap-south-1.amazonaws.com
+x-amz-date:20200521T185056Z
+x-amz-target:Transcribe.StartTranscriptionJob
+
+content-type;host;x-amz-date;x-amz-target
+d09929e40357fdc4bcbb9de9dd16970acd5287c33a9276df7d8e90d9ce080cb2
+2020-05-22 00:20:56,351:StringToSign:
+AWS4-HMAC-SHA256
+20200521T185056Z
+20200521/ap-south-1/transcribe/aws4_request
+c6d69d4e656ce1f0335496202b3fb6e26198844010be409d6e745413a67a716b
+2020-05-22 00:20:56,351:Signature:
+ccc7e01f64f892fa9d4f6583c9f84ee42ab3dde66210c716114aa331c12edf99
+2020-05-22 00:20:56,351:Sending http request: <AWSPreparedRequest stream_output=False, method=POST, url=https://transcribe.ap-south-1.amazonaws.com/, headers={'X-Amz-Target': b'Transcribe.StartTranscriptionJob', 'Content-Type': b'application/x-amz-json-1.1', 'User-Agent': b'Boto3/1.12.14 Python/3.7.4 Windows/10 Botocore/1.15.14', 'X-Amz-Date': b'20200521T185056Z', 'Authorization': b'AWS4-HMAC-SHA256 Credential=AKIAU2R6AAK3JXLNC4KF/20200521/ap-south-1/transcribe/aws4_request, SignedHeaders=content-type;host;x-amz-date;x-amz-target, Signature=ccc7e01f64f892fa9d4f6583c9f84ee42ab3dde66210c716114aa331c12edf99', 'Content-Length': '508'}>
+2020-05-22 00:20:56,352:Starting new HTTPS connection (1): transcribe.ap-south-1.amazonaws.com:443
+2020-05-22 00:20:57,275:https://transcribe.ap-south-1.amazonaws.com:443 "POST / HTTP/1.1" 400 107
+2020-05-22 00:20:57,276:Response headers: {'Content-Type': 'application/x-amz-json-1.1', 'Date': 'Thu, 21 May 2020 18:50:43 GMT', 'x-amzn-RequestId': '0ec3b3f0-a18b-426d-a2d6-a8fd48c56211', 'Content-Length': '107', 'Connection': 'keep-alive'}
+2020-05-22 00:20:57,276:Response body:
+b'{"__type":"ConflictException","Message":"The requested job name already exists. Use a different job name."}'
+2020-05-22 00:20:57,277:Event needs-retry.transcribe.StartTranscriptionJob: calling handler <botocore.retryhandler.RetryHandler object at 0x000001E0B104C488>
+2020-05-22 00:20:57,278:No retry needed.
+2020-05-22 00:20:57,280:Event before-parameter-build.transcribe.StartTranscriptionJob: calling handler <function generate_idempotent_uuid at 0x000001E0A841E828>
+2020-05-22 00:20:57,281:Event before-call.transcribe.StartTranscriptionJob: calling handler <function inject_api_version_header_if_needed at 0x000001E0A8424318>
+2020-05-22 00:20:57,281:Making request for OperationModel(name=StartTranscriptionJob) with params: {'url_path': '/', 'query_string': '', 'method': 'POST', 'headers': {'X-Amz-Target': 'Transcribe.StartTranscriptionJob', 'Content-Type': 'application/x-amz-json-1.1', 'User-Agent': 'Boto3/1.12.14 Python/3.7.4 Windows/10 Botocore/1.15.14'}, 'body': b'{"TranscriptionJobName": "English-Mar2019-8-STES0131-000034e4-1551160266.16623-360144-443223-8169321400-20190226-112107______", "Media": {"MediaFileUri": "https://dialer-recording.s3.ap-south-1.amazonaws.com/Mar2019/8/STES0131-000034e4-1551160266.16623-360144-443223-8169321400-20190226-112107.wav"}, "MediaFormat": "wav", "LanguageCode": "en-IN", "OutputBucketName": "sttash-transcribe-result-bucket", "Settings": {"ShowSpeakerLabels": true, "MaxSpeakerLabels": 2, "ShowAlternatives": true, "MaxAlternatives": 2}}', 'url': 'https://transcribe.ap-south-1.amazonaws.com/', 'context': {'client_region': 'ap-south-1', 'client_config': <botocore.config.Config object at 0x000001E0B104F808>, 'has_streaming_input': False, 'auth_type': None}}
+2020-05-22 00:20:57,282:Event request-created.transcribe.StartTranscriptionJob: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x000001E0B104F7C8>>
+2020-05-22 00:20:57,282:Event choose-signer.transcribe.StartTranscriptionJob: calling handler <function set_operation_specific_signer at 0x000001E0A841E708>
+2020-05-22 00:20:57,283:Calculating signature using v4 auth.
+2020-05-22 00:20:57,283:CanonicalRequest:
+POST
+/
+
+content-type:application/x-amz-json-1.1
+host:transcribe.ap-south-1.amazonaws.com
+x-amz-date:20200521T185057Z
+x-amz-target:Transcribe.StartTranscriptionJob
+
+content-type;host;x-amz-date;x-amz-target
+5dbebab7829d4be8fd0f8ba062aa551cb38cfdc5c725d12193e493fda64dcc50
+2020-05-22 00:20:57,283:StringToSign:
+AWS4-HMAC-SHA256
+20200521T185057Z
+20200521/ap-south-1/transcribe/aws4_request
+8871697d352ca6bfbfd97f7815db61b01f25ca41d14ab94c7afc508ac643bd58
+2020-05-22 00:20:57,284:Signature:
+4de236d35703185742ae323fd99bcf36457070d99648d1ff34a7098249aa4a4e
+2020-05-22 00:20:57,284:Sending http request: <AWSPreparedRequest stream_output=False, method=POST, url=https://transcribe.ap-south-1.amazonaws.com/, headers={'X-Amz-Target': b'Transcribe.StartTranscriptionJob', 'Content-Type': b'application/x-amz-json-1.1', 'User-Agent': b'Boto3/1.12.14 Python/3.7.4 Windows/10 Botocore/1.15.14', 'X-Amz-Date': b'20200521T185057Z', 'Authorization': b'AWS4-HMAC-SHA256 Credential=AKIAU2R6AAK3JXLNC4KF/20200521/ap-south-1/transcribe/aws4_request, SignedHeaders=content-type;host;x-amz-date;x-amz-target, Signature=4de236d35703185742ae323fd99bcf36457070d99648d1ff34a7098249aa4a4e', 'Content-Length': '514'}>
+2020-05-22 00:20:57,871:https://transcribe.ap-south-1.amazonaws.com:443 "POST / HTTP/1.1" 400 107
+2020-05-22 00:20:57,872:Response headers: {'Content-Type': 'application/x-amz-json-1.1', 'Date': 'Thu, 21 May 2020 18:50:44 GMT', 'x-amzn-RequestId': '5b60f07c-18e7-437d-a53b-48a6d942864c', 'Content-Length': '107', 'Connection': 'keep-alive'}
+2020-05-22 00:20:57,873:Response body:
+b'{"__type":"ConflictException","Message":"The requested job name already exists. Use a different job name."}'
+2020-05-22 00:20:57,874:Event needs-retry.transcribe.StartTranscriptionJob: calling handler <botocore.retryhandler.RetryHandler object at 0x000001E0B104C488>
+2020-05-22 00:20:57,875:No retry needed.
+2020-05-22 00:20:57,877:Could not transcribe: https://dialer-recording.s3.ap-south-1.amazonaws.com/Mar2019/8/STES0131-000034e4-1551160266.16623-360144-443223-8169321400-20190226-112107.wav
