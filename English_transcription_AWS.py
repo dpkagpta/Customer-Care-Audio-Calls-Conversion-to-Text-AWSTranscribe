@@ -20,10 +20,10 @@ import csv
 
 
 # Specifying required information for access to AWS
-AWS_ACCESS_KEY_ID = 'AKIAU2R6AAK3JXLNC4KF'
-AWS_SECRET_ACCESS_KEY = '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'
-output__name = 'sttash-transcribe-result-bucket'
-input_bucket = 'dialer-recording'
+AWS_ACCESS_KEY_ID = '*********'
+AWS_SECRET_ACCESS_KEY = '*********'
+output__name = '*********'
+input_bucket = '*********'
 
 
 # Creating connection with s3 server and required bucket
