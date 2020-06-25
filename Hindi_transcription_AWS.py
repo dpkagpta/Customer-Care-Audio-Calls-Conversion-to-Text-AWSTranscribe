@@ -20,10 +20,10 @@ import csv
   
 
 # Specifying required information for access to AWS
-AWS_ACCESS_KEY_ID = 'AKIAU2R6AAK3JXLNC4KF'
-AWS_SECRET_ACCESS_KEY = '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'
-output__name = 'sttash-transcribe-result-bucket'
-input_bucket = 'dialer-recording'
+AWS_ACCESS_KEY_ID = '********'
+AWS_SECRET_ACCESS_KEY = '********'
+output__name = '********'
+input_bucket = '********'
 
 
 # Creating connection with s3 server and required bucket
@@ -68,7 +68,7 @@ df1 = df1[df1['sizes'] >= 300]
 
 # print('We will be transcribing ', len(df1), ' calls for first 5000 customer ids batch.')
 
-df1['recording_url'] = 'https://dialer-recording.s3.ap-south-1.amazonaws.com/' + df1['recordings']
+df1['recording_url'] = 'https://********.s3.ap-south-1.amazonaws.com/' + df1['recordings']
 df1['job_ids'] = df1['recordings'].str.replace('.wav', '')
 df1['job_ids'] = df1['job_ids'].str.replace('/', '-')
 df1 = df1.drop('recordings', axis=1)
