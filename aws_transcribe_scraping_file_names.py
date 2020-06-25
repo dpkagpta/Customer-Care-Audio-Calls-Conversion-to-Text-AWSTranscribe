@@ -87,7 +87,7 @@ df1 = df1[df1['sizes'] >= 300]
 
 print('We will be transcribing ', len(df1), ' calls for first 5000 customer ids batch.')
 
-df1['recording_url'] = 'https://dialer-recording.s3.ap-south-1.amazonaws.com/' + df1['recordings']
+df1['recording_url'] = 'https://********.s3.ap-south-1.amazonaws.com/' + df1['recordings']
 df1['job_ids'] = df1['recordings'].str.replace('.wav', '')
 df1['job_ids'] = df1['job_ids'].str.replace('/', '-')
 df1 = df1.drop('recordings', axis=1)
