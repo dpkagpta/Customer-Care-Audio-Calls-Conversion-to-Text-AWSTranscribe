@@ -91,32 +91,14 @@ transcribe = boto3.client('transcribe', aws_access_key_id=AWS_ACCESS_KEY_ID,
 
 
 # defining function for transcribing audio files
-def english_transcribe_data(job_name, job_uri, output_bucket_name):
+def transcribe_data(job_name, job_uri, output_bucket_name, language):
     
     transcribe.start_transcription_job(
         
         TranscriptionJobName=job_name, 
         Media = {'MediaFileUri': job_uri}, 
         MediaFormat='wav', 
-        LanguageCode='en-IN',
-        OutputBucketName = output_bucket_name,
-        Settings={
-                      'ShowSpeakerLabels': True,
-                      'MaxSpeakerLabels': 2,
-                      'ShowAlternatives': True,
-                      'MaxAlternatives': 2,                                
-                })
-
-    
-# defining function for transcribing audio files
-def hindi_transcribe_data(job_name, job_uri, output_bucket_name):
-    
-    transcribe.start_transcription_job(
-        
-        TranscriptionJobName=job_name, 
-        Media = {'MediaFileUri': job_uri}, 
-        MediaFormat='wav', 
-        LanguageCode='hi-IN',
+        LanguageCode=language,
         OutputBucketName = output_bucket_name,
         Settings={
                       'ShowSpeakerLabels': True,
@@ -130,7 +112,7 @@ def hindi_transcribe_data(job_name, job_uri, output_bucket_name):
 for k, v in transcribe_data_dict.items():
   
     try:   
-        english_transcribe_data(job_name='English-' + k, job_uri=v, output_bucket_name=output__name)
+        english_transcribe_data(job_name='English-' + k, job_uri=v, output_bucket_name=output__name, language='en-IN')
         
     except:
         try:
@@ -143,12 +125,12 @@ for k, v in transcribe_data_dict.items():
                 writer = csv.writer(file)
                 writer.writerow(v)
            
-          
+
 # transcribing in Hindi and saving the results in the output bucket on s3 (we cannot save it locally directly after transcrining)
 for k, v in transcribe_data_dict.items():
   
     try:   
-        english_transcribe_data(job_name='Hindi-' + k, job_uri=v, output_bucket_name=output__name)
+        english_transcribe_data(job_name='Hindi-' + k, job_uri=v, output_bucket_name=output__name, language='hi-IN')
         
     except:
         try:
