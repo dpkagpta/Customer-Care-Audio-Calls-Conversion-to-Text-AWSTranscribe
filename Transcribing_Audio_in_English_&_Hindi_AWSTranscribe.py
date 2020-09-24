@@ -45,15 +45,18 @@ df = df.rename({'0': 'sizes', 'index': 'recordings'}, axis=1)
 all_recordings = df['recordings'].unique().tolist()
 print('We have total of ', len(all_recordings), ' recorded calls of customers with us')
 
+
 # Loading the dataset with customer ids
 relevant_customers_ids = pd.read_csv(r'../../relevant_customer_ids.csv')
 relevant_customers_ids = relevant_customers_ids['customer_ids'].unique().tolist()
 print('We have a total of ', len(relevant_customers_ids), ' with us')
 
+
 # Loading scraped audio filed for customers
 with open(r'../../all_cust_ids_records.json', 'r') as j:
      contents = json.loads(j.read())
 
+    
 # some further processing of the dataset
 customers_calls = []
 for k in relevant_customers_ids:
@@ -61,6 +64,7 @@ for k in relevant_customers_ids:
 
 customers_calls = [val for i in customers_calls for val in i]
 customers_calls = list(set(customers_calls))
+
 
 # final data preparation for customer ids
 final_data = final_data[final_data['recordings'].isin(customers_calls)]
@@ -70,11 +74,13 @@ final_data = final_data[final_data['sizes'] >= 300]
 # let's keep a track of all the numbers by perinting them
 print('We will be transcribing ', len(final_data), ' calls for customer ids.')
 
+
 # Creating a new column with the name final URL of the audio
 final_data['recording_url'] = 'https://{}.format(input_bucket).s3.ap-south-1.amazonaws.com/' + final_data['recordings']
 final_data['job_ids'] = final_data['recordings'].str.replace('.wav', '')
 final_data['job_ids'] = final_data['job_ids'].str.replace('/', '-')
 final_data = final_data.drop('recordings', axis=1)
+
 
 # Creating a dictionary
 transcribe_data_dict = dict(zip(final_data.job_ids, final_data.recording_url))
@@ -82,6 +88,7 @@ transcribe_data_dict = dict(zip(final_data.job_ids, final_data.recording_url))
 # making connection with AWS transcribe
 transcribe = boto3.client('transcribe', aws_access_key_id=AWS_ACCESS_KEY_ID, 
                             aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name='ap-south-1')
+
 
 # defining function for transcribing audio files
 def english_transcribe_data(job_name, job_uri, output_bucket_name):
@@ -98,9 +105,9 @@ def english_transcribe_data(job_name, job_uri, output_bucket_name):
                       'MaxSpeakerLabels': 2,
                       'ShowAlternatives': True,
                       'MaxAlternatives': 2,                                
-
                 })
 
+    
 # defining function for transcribing audio files
 def hindi_transcribe_data(job_name, job_uri, output_bucket_name):
     
@@ -116,7 +123,6 @@ def hindi_transcribe_data(job_name, job_uri, output_bucket_name):
                       'MaxSpeakerLabels': 2,
                       'ShowAlternatives': True,
                       'MaxAlternatives': 2,                                
-
                 })
 
 
