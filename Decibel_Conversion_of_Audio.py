@@ -26,13 +26,13 @@ AWS_SECRET_ACCESS_KEY = '********'
 
 
 # Establishing connection with s3
-s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,                  aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name='ap-south-1')
+s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name='ap-south-1')
 bucket = s3.Bucket(input_bucket)
 
 
 # Downloading an audio file from s3 to local system
-bucket.download_file('********.wav',
-                     r'E:\project\transcribe-project\decibel_conversion\recordings.wav')
+bucket.download_file('****{wave file URL ob s3}****.wav',
+                     r'../path_for_local_system/recording.wav')
 
 
 with open(r'../../decibel_values.csv', 'a') as f:
