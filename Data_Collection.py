@@ -14,7 +14,7 @@ s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name='ap-south-1')
 bucket = s3.Bucket(input_bucket)
 
-# scraping audio urls for 90+ defaulters from s3 bucket
+# scraping audio urls from s3 bucket
 all_recordings = {}
 for key in bucket.objects.all():
     a = key.key
@@ -23,7 +23,7 @@ for key in bucket.objects.all():
         all_recordings[a] = key.size
 
 
-# finding customer ids with call recordings with us
+# matching yoour customer ids with call recordings
 relevant_cust_id = []
 calllist_for_each_custid = {}
 for i in all_recordings:    
@@ -37,8 +37,8 @@ for i in all_recordings:
             except KeyError:
                 calllist_for_each_custid[k] = [i]
 
-# Saving them locally
-pd.Series(all_recordings).reset_index().to_csv(r'E:\project\final_recordings_and_sizes.csv', index=False)
-pd.DataFrame(relevant_cust_id, columns=['customer_ids']\
-            ).to_csv(r'E:\project\transcribe-project\Data\relevant_customer_ids.csv', index=False)
-json.dump(calllist_for_each_custid, open(r'E:\project\transcribe-project\Data\\all_cust_ids_records.json', 'w'))
+# Saving them locally in a csv and json file
+pd.Series(all_recordings).reset_index().to_csv(r'../../final_recordings_and_sizes.csv', index=False)
+pd.DataFrame(relevant_cust_id, columns=['customer_ids'] \
+            ).to_csv(r'../../relevant_customer_ids.csv', index=False)
+json.dump(calllist_for_each_custid, open(r'../../all_cust_ids_records.json', 'w'))
