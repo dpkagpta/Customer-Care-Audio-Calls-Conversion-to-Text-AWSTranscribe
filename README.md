@@ -2,7 +2,7 @@
 
 ## Objective
 
-Today when we have abundance of service centre data available to us and a lot of human-power invested in doing it, we can utilise machine learning techniques to make this service better. We can create a managed system for the calls. Some of requirements of the cutomers are demand repetitive tasks, we can find them out and eliminate human interactions by putting in machines to do those tasks. We can create an automatic system to do the routine works efficiently. It will also be error free. 
+Today when we have abundance of service centre data available to us and a lot of human-power invested in doing it, we can utilise machine learning techniques to make this service better. We can create a managed system for the calls. Some of requirements of the cutomers are repetitive tasks, we can find them out and eliminate human interactions by putting in machines to do them. We can create an automatic system to do the routine works efficiently. It will also be error free. 
 
 ## Data
 .wav file in any input bucket on Amazon S3
