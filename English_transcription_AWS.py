@@ -6,7 +6,7 @@ import pandas as pd
 import logging
 import csv
 
-#Create and configure logger 
+#Create and configure logger (optional)
 # logging.basicConfig(filename=r"./English_transcription_logs.log", 
 #                     format='%(asctime)s:%(message)s', 
 #                     filemode='a',
@@ -22,6 +22,7 @@ import csv
 # Specifying required information for access to AWS
 AWS_ACCESS_KEY_ID = '*********'
 AWS_SECRET_ACCESS_KEY = '*********'
+
 output__name = '*********'
 input_bucket = '*********'
 
@@ -32,50 +33,51 @@ s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
 bucket = s3.Bucket(input_bucket)
 
 
-# 90 days defaulters data preparation
-cust_id = pd.read_csv(r'E:\project\transcribe-project\Data\90pluscustomers.csv')
-cust_id = cust_id['customer_id'].unique().tolist()
-cust_id = ['-' + str(i) + '-' for i in cust_id]
+# data preprocessing
+customer_id = pd.read_csv(r'../../customers.csv')
+customer_id = customer_id['customer_id'].unique().tolist()
+customer_id = ['-' + str(i) + '-' for i in customer_id]
 
 
-# loading the above saved audio file links data
-df = pd.read_csv(r'E:\project\transcribe-project\Data\final_recordings_and_sizes.csv')
+# loading the dataset containing scraped audio urls from s3
+df = pd.read_csv(r'../../final_recordings_and_sizes.csv')
 df = df.rename({'0': 'sizes', 'index': 'recordings'}, axis=1)
 all_recordings = df['recordings'].unique().tolist()
-print('We have total of ', len(all_recordings), ' recorded calls of 90+ days defaulter customers with us')
+print('We have total of ', len(all_recordings), ' recorded calls of customers with us')
 
-
-relevant_customers_ids = pd.read_csv(r'E:\project\transcribe-project\Data\relevant_customer_ids.csv')
+# Loading the dataset with customer ids
+relevant_customers_ids = pd.read_csv(r'../../relevant_customer_ids.csv')
 relevant_customers_ids = relevant_customers_ids['customer_ids'].unique().tolist()
-print('We have a total of ', len(relevant_customers_ids), ' 90+ days defaulters with us')
+print('We have a total of ', len(relevant_customers_ids), ' with us')
 
-# transcribing for first 5000 customers
-calls_aftr_10000_custid = relevant_customers_ids[10000:]
-
-with open(r'E:\project\transcribe-project\Data\all_cust_ids_records.json', 'r') as j:
+# Loading scraped audio filed for customers
+with open(r'../../all_cust_ids_records.json', 'r') as j:
      contents = json.loads(j.read())
 
-customers_calls_5000_batch = []
-for k in calls_aftr_10000_custid:
-    customers_calls_5000_batch.append(contents[str(k)])
+# some further processing of the dataset
+customers_calls = []
+for k in relevant_customers_ids:
+    relevant_customers_ids.append(contents[str(k)])
 
-customers_calls_5000_batch = [val for i in customers_calls_5000_batch for val in i]
-customers_calls_5000_batch = list(set(customers_calls_5000_batch))
+customers_calls = [val for i in customers_calls for val in i]
+customers_calls = list(set(customers_calls))
 
-# data preparation for first 5000 customer ids
-df1 = df[df['recordings'].isin(customers_calls_5000_batch)]
+# final data preparation for customer ids
+final_data = final_data[final_data['recordings'].isin(customers_calls)]
 # filtering
-df1 = df1[df1['sizes'] >= 300]
+final_data = final_data[final_data['sizes'] >= 300]
 
-print('We will be transcribing ', len(df1), ' calls for first 5000 customer ids batch.')
+# let's keep a track of all the numbers by perinting them
+print('We will be transcribing ', len(final_data), ' calls for customer ids.')
 
-df1['recording_url'] = 'https://dialer-recording.s3.ap-south-1.amazonaws.com/' + df1['recordings']
-df1['job_ids'] = df1['recordings'].str.replace('.wav', '')
-df1['job_ids'] = df1['job_ids'].str.replace('/', '-')
-df1 = df1.drop('recordings', axis=1)
+# Creating a new column with the name final URL of the audio
+final_data['recording_url'] = 'https://{}.format(input_bucket).s3.ap-south-1.amazonaws.com/' + final_data['recordings']
+final_data['job_ids'] = final_data['recordings'].str.replace('.wav', '')
+final_data['job_ids'] = final_data['job_ids'].str.replace('/', '-')
+final_data = final_data.drop('recordings', axis=1)
 
-
-transcribe_data_dict = dict(zip(df1.job_ids, df1.recording_url))
+# Creating a dictionary
+transcribe_data_dict = dict(zip(final_data.job_ids, final_data.recording_url))
 
 # making connection with AWS transcribe
 transcribe = boto3.client('transcribe', aws_access_key_id=AWS_ACCESS_KEY_ID, 
@@ -99,27 +101,58 @@ def english_transcribe_data(job_name, job_uri, output_bucket_name):
 
                 })
 
-
-
-for k, v in transcribe_data_dict.items():
-    try:
+# defining function for transcribing audio files
+def hindi_transcribe_data(job_name, job_uri, output_bucket_name):
+    
+    transcribe.start_transcription_job(
         
-        english_transcribe_data(job_name='English-' + k, job_uri=v, output_bucket_name=output__name)
-        # print('Print ithjrbfkjewfwefdewbfdhjewbfkw', v)
-        # logger.info("Transcription Done: {}".format(v)) 
+        TranscriptionJobName=job_name, 
+        Media = {'MediaFileUri': job_uri}, 
+        MediaFormat='wav', 
+        LanguageCode='hi-IN',
+        OutputBucketName = output_bucket_name,
+        Settings={
+                      'ShowSpeakerLabels': True,
+                      'MaxSpeakerLabels': 2,
+                      'ShowAlternatives': True,
+                      'MaxAlternatives': 2,                                
 
+                })
+
+
+# transcribing in English and saving the results in the output bucket on s3 (we cannot save it locally directly after transcrining)
+for k, v in transcribe_data_dict.items():
+  
+    try:   
+        english_transcribe_data(job_name='English-' + k, job_uri=v, output_bucket_name=output__name)
         
     except:
         try:
-            english_transcribe_data(job_name='English-' + k + '______', job_uri=v, output_bucket_name=output__name)
-            # print('Print ithjrbfkjewfwefdewbfdhjewbfkw', v)
-            # logger.info("Transcription Done with exception: {}".format(v)) 
-
+          # In case the name already exists (it happens!)
+            english_transcribe_data(job_name='English-' + k + '_', job_uri=v, output_bucket_name=output__name)
+          
         except:
-            with open('.\English_not_transcribed_recordings.csv', 'a') as file:
+          # Keeping an track of all the recording URLs which could not get transcribed
+            with open('../../English_not_transcribed_recordings.csv', 'a') as file:
                 writer = csv.writer(file)
                 writer.writerow(v)
-            # print('Print ithjrbfkjewfwefdewbfdhjewbfkw', v)
-            # logger.info("Could not transcribe: {}".format(v)) 
-
+           
+          
+# transcribing in Hindi and saving the results in the output bucket on s3 (we cannot save it locally directly after transcrining)
+for k, v in transcribe_data_dict.items():
+  
+    try:   
+        english_transcribe_data(job_name='Hindi-' + k, job_uri=v, output_bucket_name=output__name)
+        
+    except:
+        try:
+          # In case the name already exists (it happens!)
+            english_transcribe_data(job_name='Hindi-' + k + '_', job_uri=v, output_bucket_name=output__name)
+          
+        except:
+          # Keeping an track of all the recording URLs which could not get transcribed
+            with open('../../Hindi_not_transcribed_recordings.csv', 'a') as file:
+                writer = csv.writer(file)
+                writer.writerow(v)
+       
 
